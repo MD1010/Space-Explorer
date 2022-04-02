@@ -14,7 +14,6 @@ class UserAPI extends DataSource {
    * here, so we can know about the user making requests
    */
   initialize(config) {
-    console.log(config);
     this.context = config.context;
   }
 
@@ -61,6 +60,7 @@ class UserAPI extends DataSource {
   }
 
   async getLaunchIdsByUser() {
+    log(this.context);
     const userId = this.context.user.id;
     const found = await this.store.trips.findAll({
       where: { userId },
@@ -69,6 +69,7 @@ class UserAPI extends DataSource {
   }
 
   async isBookedOnLaunch({ launchId }) {
+    console.log("launchId", launchId);
     if (!this.context || !this.context.user) return false;
     const userId = this.context.user.id;
     const found = await this.store.trips.findAll({
