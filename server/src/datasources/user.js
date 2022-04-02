@@ -1,5 +1,5 @@
-const { DataSource } = require('apollo-datasource');
-const isEmail = require('isemail');
+const { DataSource } = require("apollo-datasource");
+const isEmail = require("isemail");
 
 class UserAPI extends DataSource {
   constructor({ store }) {
@@ -14,6 +14,7 @@ class UserAPI extends DataSource {
    * here, so we can know about the user making requests
    */
   initialize(config) {
+    console.log(config);
     this.context = config.context;
   }
 
@@ -23,8 +24,7 @@ class UserAPI extends DataSource {
    * instead
    */
   async findOrCreateUser({ email: emailArg } = {}) {
-    const email =
-      this.context && this.context.user ? this.context.user.email : emailArg;
+    const email = this.context && this.context.user ? this.context.user.email : emailArg;
     if (!email || !isEmail.validate(email)) return null;
 
     const users = await this.store.users.findOrCreate({ where: { email } });
@@ -65,9 +65,7 @@ class UserAPI extends DataSource {
     const found = await this.store.trips.findAll({
       where: { userId },
     });
-    return found && found.length
-      ? found.map(l => l.dataValues.launchId).filter(l => !!l)
-      : [];
+    return found && found.length ? found.map((l) => l.dataValues.launchId).filter((l) => !!l) : [];
   }
 
   async isBookedOnLaunch({ launchId }) {
