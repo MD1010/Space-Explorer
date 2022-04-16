@@ -60,7 +60,6 @@ class UserAPI extends DataSource {
   }
 
   async getLaunchIdsByUser() {
-    log(this.context);
     const userId = this.context.user.id;
     const found = await this.store.trips.findAll({
       where: { userId },

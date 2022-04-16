@@ -30,7 +30,6 @@ module.exports = {
   Mission: {
     // The default size is 'LARGE' if not provided
     missionPatch: (mission, { size } = { size: "LARGE" }) => {
-      console.log(mission);
       return size === "SMALL" ? mission.missionPatchSmall : mission.missionPatchLarge;
     },
   },
